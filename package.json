@@ -9,6 +9,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "mocha": "^3.0.1"
+    "chai": "^3.5.0",
+    "eventsource": "^0.2.1",
+    "hapi": "^14.1.0",
+    "mocha": "^3.0.1",
+    "node-uuid": "^1.4.7"
+  },
+  "dependencies": {
+    "rx": "^4.1.0"
   }
 }
