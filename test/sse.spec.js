@@ -11,8 +11,7 @@ const hapiRxSSE = require('../');
 const baseUrl = 'http://localhost:9100';
 
 describe('Given a Hapi server ' +
-    'And a route handler which uses hapi-rx-sse to broadcast an observable ' +
-    'which emits elements from a predefined array', function () {
+    'with a route handler using hapi-rx-sse to broadcast objects over SSE', function () {
 
     beforeEach(function () {
 
@@ -68,7 +67,7 @@ describe('Given a Hapi server ' +
             this.source = new EventSource(baseUrl + '/events/streaming');
         });
 
-        it('Then it should receive the events contained in the predefined array', function (done) {
+        it('Then it should receive the broadcasted objects', function (done) {
 
             Rx.Observable.fromEvent(this.source, 'books.insert')
                 .bufferWithCount(2)
