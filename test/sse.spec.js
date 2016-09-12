@@ -13,65 +13,68 @@ const baseUrl = 'http://localhost:9100';
 describe('Given a Hapi server ' +
     'with a route handler using hapi-rx-sse to broadcast objects over SSE', function () {
 
-    beforeEach(function () {
+        beforeEach(function () {
 
-        const sseArray = [
-            {
-                id: '1',
-                event: 'books.insert',
-                data: JSON.stringify({
-                    id: 5,
-                    attributes: {
-                        title: 'test title5'
-                    }
-                })
-            },
-            {
-                id: '2',
-                event: 'books.insert',
-                data: JSON.stringify({
-                    id: 6,
-                    attributes: {
-                        title: 'test title6'
-                    }
-                })
-            }
-        ];
+            const sseArray = [
+                {
+                    id: '1',
+                    event: 'books.insert',
+                    data: JSON.stringify({
+                        id: 5,
+                        attributes: {
+                            title: 'test title5'
+                        }
+                    })
+                },
+                {
+                    id: '2',
+                    event: 'books.insert',
+                    data: JSON.stringify({
+                        id: 6,
+                        attributes: {
+                            title: 'test title6'
+                        }
+                    })
+                }
+            ];
 
-        const server = this.server = new Hapi.Server();
-        server.connection({port: 9100});
+            const server = this.server = new Hapi.Server();
+            server.connection({ port: 9100 });
 
-        return server.start()
-            .then(() => {
-                server.route({
-                    path: '/events/streaming',
-                    method: 'GET',
-                    handler: (req, reply) => {
-                        const sseObservable = Rx.Observable.fromArray(sseArray);
-                        hapiRxSSE.handle(sseObservable, req, reply);
-                    }
+            return server.start()
+                .then(() => {
+                    server.route({
+                        path: '/events/streaming',
+                        method: 'GET',
+                        handler: (req, reply) => {
+                            const observable = rxNoKafka.createObservable({
+                                consumer: new Kafka.SimpleConsumer(this.options), topic: 'all', partition: 0
+                            })
+                            
+                            hapiRxSSE.stream(observable, req, reply);
+                        }
+                    });
+
+                    return server
                 });
 
-                return server
-            });
-
-    });
-
-    afterEach(function () {
-        return this.server.stop();
-    });
-
-    describe('When an EventSource is created', function () {
-
-        beforeEach(function () {
-            this.source = new EventSource(baseUrl + '/events/streaming');
         });
 
-        it('Then it should receive the broadcasted objects', function (done) {
+        afterEach(function () {
+            return this.server.stop();
+        });
 
-            Rx.Observable.fromEvent(this.source, 'books.insert')
-                .bufferWithCount(2)
-                .subscribe(
+        describe('When an EventSource is created', function () {
+
+            beforeEach(function () {
+                this.source = new EventSource(baseUrl + '/events/streaming');
+            });
+
+            it('Then it should receive the broadcasted objects', function (done) {
+
+                Rx.Observable.fromEvent(this.source, 'books.insert')
+                    .bufferWithCount(2)
+                    .subscribe(
                     (events) => {
                         assertEventState(events[0], '1', 'books.insert', 5, 'test title5');
                         assertEventState(events[1], '2', 'books.insert', 6, 'test title6');
@@ -80,9 +83,9 @@ describe('Given a Hapi server ' +
                     },
                     done)
 
-        })
+            })
+        });
     });
-});
 
 function assertEventState(event, id, type, resId, resAttId) {
     expect(event.lastEventId).to.equal(id);

@@ -4,7 +4,7 @@ const Stream = require('stream');
 
 const endl = '\r\n';
 
-module.exports.handle = (sseObservable, req, reply) => {
+module.exports.stream = (sseObservable, req, reply) => {
 
     const stream = new Stream.PassThrough();
     stream.write('');
