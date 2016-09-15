@@ -47,11 +47,8 @@ describe('Given a Hapi server ' +
                         path: '/events/streaming',
                         method: 'GET',
                         handler: (req, reply) => {
-                            const observable = rxNoKafka.createObservable({
-                                consumer: new Kafka.SimpleConsumer(this.options), topic: 'all', partition: 0
-                            })
-                            
-                            hapiRxSSE.stream(observable, req, reply);
+                            const sseObservable = Rx.Observable.fromArray(sseArray);
+                            hapiRxSSE.stream(sseObservable, req, reply);
                         }
                     });
 
