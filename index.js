@@ -7,7 +7,7 @@ const endl = '\r\n';
 module.exports.stream = (sseObservable, req, reply) => {
 
     const stream = new Stream.PassThrough();
-    stream.write('');
+    stream.write(';\r\n');
 
     reply(stream)
         .type('text/event-stream')
