@@ -44,7 +44,7 @@ server.route({
     path: '/events/streaming',
     method: 'GET',
     handler: (req, reply) => {
-        const observable = Rx.Observable.fromArray([1,2,3,4]);
+        const observable = Rx.Observable.fromArray(sseObjects);
         hapiRxSSE.stream(observable, req, reply);
     }
 });
