@@ -1,9 +1,9 @@
 # **hapi-rx-sse**
 
-Stream [RxJs](https://github.com/Reactive-Extensions/RxJS) RxJs Observable values over SSE using Hapi. 
+Stream Rxjs Observable values over SSE using Hapi. 
 
 This tiny lib takes care of setting the appropriate Content-Type and Response headers, 
-and streams back Rxjs Observable values to the client in the event payload format.
+and streams back [RxJs](https://github.com/Reactive-Extensions/RxJS) Observable values to the client in the stringified event payload format.
   
 ## Installation
 
