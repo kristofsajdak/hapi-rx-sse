@@ -46,7 +46,7 @@ cd example
 node index.js
 ```
 
-open your browser at (http://localhost:9100/events/streaming)[http://localhost:9100/events/streaming] to see the output
+open your browser at [http://localhost:9100/events/streaming](http://localhost:9100/events/streaming) to see the output
  
 or use curl instead
 ```
