@@ -7,7 +7,8 @@ const endl = '\r\n';
 module.exports.stream = (sseObservable, req, reply) => {
 
     const stream = new Stream.PassThrough();
-    stream.write(';\r\n');
+    // force response by sending over a ; ( client Eventsource ignores this )
+    stream.write(`;${endl}${endl}`);
 
     reply(stream)
         .type('text/event-stream')
@@ -15,27 +16,25 @@ module.exports.stream = (sseObservable, req, reply) => {
         .header('Connection', 'keep-alive')
         .header('Content-Encoding', 'identity');
 
-    var subscription = sseObservable
+    sseObservable
         .subscribe(
             (sseObject) => {
-                const stringifiedSSEPart = stringifyEvent(sseObject);
-                stream.write(stringifiedSSEPart)
+                stream.write(stringifyEvent(sseObject));
             },
             (err) => {
                 console.error(err.stack);
-                end()
+            },
+            ()=> {
+                // close the response stream on Observable completion
+                stream.end();
             });
 
     // this is triggered on when the client issues a req.abort() or when the connection closes
     req.raw.req.on('close', function () {
-        end()
+        stream.end(); // close the response stream
     });
 
-    function end() {
-        subscription.dispose();
-        stream.end();
-    }
-
+    // stringify the SSE object according to the spec, if the event is not specified the default value of 'message' is set
     function stringifyEvent(sseObject) {
         let str = '';
         if (sseObject.event) {

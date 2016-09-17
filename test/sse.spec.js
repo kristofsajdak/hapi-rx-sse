@@ -14,47 +14,8 @@ describe('Given a Hapi server ' +
     'with a route handler using hapi-rx-sse to broadcast objects over SSE', function () {
 
         beforeEach(function () {
-
-            const sseArray = [
-                {
-                    id: '1',
-                    event: 'books.insert',
-                    data: JSON.stringify({
-                        id: 5,
-                        attributes: {
-                            title: 'test title5'
-                        }
-                    })
-                },
-                {
-                    id: '2',
-                    event: 'books.insert',
-                    data: JSON.stringify({
-                        id: 6,
-                        attributes: {
-                            title: 'test title6'
-                        }
-                    })
-                }
-            ];
-
-            const server = this.server = new Hapi.Server();
-            server.connection({ port: 9100 });
-
-            return server.start()
-                .then(() => {
-                    server.route({
-                        path: '/events/streaming',
-                        method: 'GET',
-                        handler: (req, reply) => {
-                            const sseObservable = Rx.Observable.fromArray(sseArray);
-                            hapiRxSSE.stream(sseObservable, req, reply);
-                        }
-                    });
-
-                    return server
-                });
-
+            this.server = require('../example/sseArrayObservable');
+            return this.server.start()
         });
 
         afterEach(function () {
