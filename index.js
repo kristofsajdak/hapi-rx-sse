@@ -7,8 +7,9 @@ const endl = '\r\n';
 module.exports.stream = (sseObservable, req, reply) => {
 
     const stream = new Stream.PassThrough();
-    // force response by sending over a ; ( client Eventsource ignores this )
-    stream.write(`;${endl}${endl}`);
+    // force response by sending over an end-line marker
+    // ( This is useful when an EventSource has an on 'open' event handler defined )
+    stream.write(`${endl}`);
 
     reply(stream)
         .type('text/event-stream')

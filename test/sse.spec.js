@@ -6,7 +6,6 @@ const uuid = require('node-uuid');
 const EventSource = require('eventsource');
 const chai = require('chai');
 const expect = chai.expect;
-const hapiRxSSE = require('../');
 
 const baseUrl = 'http://localhost:9100';
 
