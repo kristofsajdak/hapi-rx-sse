@@ -1,6 +1,6 @@
 {
   "name": "hapi-rx-sse",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,9 +14,7 @@
     "exiting": "^2.0.1",
     "hapi": "^14.1.0",
     "mocha": "^3.0.1",
-    "node-uuid": "^1.4.7"
-  },
-  "dependencies": {
+    "node-uuid": "^1.4.7",
     "rx": "^4.1.0"
   }
 }
