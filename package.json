@@ -1,12 +1,20 @@
 {
   "name": "hapi-rx-sse",
-  "version": "0.4.3",
-  "description": "",
+  "version": "0.4.4",
+  "description": "Stream Rxjs Observable values over SSE using Hapi",
   "main": "index.js",
+  "keywords": [
+    "hapi",
+    "sse",
+    "rx",
+    "rxjs"
+  ],
+  "engines": {
+    "node": ">=4"
+  },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha ./test"
   },
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",
