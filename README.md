@@ -1,11 +1,16 @@
 # **hapi-rx-sse**
 
-Stream Rxjs Observable values over SSE using Hapi. 
+Stream Rxjs Observable values as SSE using Hapi. 
   
 [![Build Status](https://travis-ci.org/kristofsajdak/hapi-rx-sse.svg?branch=master)](https://travis-ci.org/kristofsajdak/hapi-rx-sse)
   
-This tiny lib takes care of setting the appropriate Content-Type and Response headers, 
-and streams back [RxJs](https://github.com/Reactive-Extensions/RxJS) Observable values to the client with the correct SSE payload format.
+Hapi-rx-sse is a tiny lib which can be used inside a route handler to stream out data as Server Sent Events (SSE). 
+
+Any [RxJs](https://github.com/Reactive-Extensions/RxJS) Observable can be used as the source of event data, which allows for interesting composition. 
+For example the source Observable could encapsulate a Kafka, RabbitMQ, Redis consumer... or any other thing which is capable of emitting events. 
+           
+The composable nature of RxJs allows us to add mappers, filters and buffers to the source Observable, 
+so that we can transform the data into the expected SSE payload, filter and enrich the content in an efficient way.
   
 ## Installation
 
@@ -15,7 +20,7 @@ npm install hapi-rx-sse
 
 ## How to use
 
-Hapi-rx-sse is a single function which accepts any RxJs Observable and Hapi's req and reply.  
+Hapi-rx-sse exposes a single `stream` function which accepts any RxJs Observable and Hapi's req and reply.  
 
 ```javascript
 hapiRxSSE.stream(createObservable(), req, reply);
@@ -39,7 +44,7 @@ function createObservable() {
 
 ## Example 
 
-There is a very simple example included which outputs an Rxjs Observable created from a static array.
+There is a very simple example included which streams out Rxjs Observable events created from a static array.
 
 ```
 cd example
