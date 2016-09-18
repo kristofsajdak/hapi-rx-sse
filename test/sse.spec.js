@@ -7,6 +7,7 @@ const EventSource = require('eventsource');
 const chai = require('chai');
 const expect = chai.expect;
 const hapiRxSSE = require('../');
+const request = require('request');
 
 const baseUrl = 'http://localhost:9100';
 
@@ -19,15 +20,29 @@ describe(`stream`, function () {
     it('should open and close the response stream', function (done) {
         const sseArray = [];
         this.server = createServer(Rx.Observable.fromArray(sseArray));
-        this.server.start();
-        const source = new EventSource(baseUrl + '/events/streaming');
-        Rx.Observable.fromEvent(source, 'open')
-            .subscribe(
-                (event) => {
-                    source.close();
-                    done();
-                },
-                done)
+        this.server.start((err)=> {
+            if (err) throw err;
+            request
+                .get('http://localhost:9100/events/streaming')
+                .on('response', function (response) {
+                    response.on('end', ()=> done())
+                })
+        });
+    });
+
+    it('should dispose the source Observable when the request is aborted or connection is closed.', function (done) {
+        this.server = createServer(Rx.Observable.create((observer)=> {
+            setInterval(()=>observer.onNext({data: 'foobar'}), 200);
+            return ()=> done(); // this is invoked when the Observable is disposed.
+        }));
+        this.server.start((err)=> {
+            if (err) throw err;
+            request
+                .get('http://localhost:9100/events/streaming')
+                .on('response', function (response) {
+                    response.req.abort();
+                });
+        })
     });
 
     it('should stream the Observable event objects according to SSE spec', function (done) {

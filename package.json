@@ -1,6 +1,6 @@
 {
   "name": "hapi-rx-sse",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Stream Rxjs Observable values over SSE using Hapi",
   "main": "index.js",
   "keywords": [
@@ -27,6 +27,7 @@
     "mocha": "^3.0.1",
     "mocha-sinon": "^1.1.6",
     "node-uuid": "^1.4.7",
+    "request": "^2.75.0",
     "rx": "^4.1.0",
     "sinon": "^1.17.5"
   }

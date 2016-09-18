@@ -16,7 +16,7 @@ module.exports.stream = (sseObservable, req, reply) => {
         .header('Connection', 'keep-alive')
         .header('Content-Encoding', 'identity');
 
-    sseObservable
+    const subscription = sseObservable
         .doOnNext((sseObject) => {
             stream.write(stringifyEvent(sseObject));
         })
@@ -28,6 +28,7 @@ module.exports.stream = (sseObservable, req, reply) => {
 
     // this is triggered on when the client issues a req.abort() or when the connection closes
     req.raw.req.on('close', function () {
+        subscription.dispose(); // dispose the observable subscription
         stream.end(); // close the response stream
     });
 
