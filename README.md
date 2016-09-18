@@ -12,7 +12,7 @@ The source Observable can encapsulate a Kafka, RabbitMQ, Mongodb oplog consumer.
 The composable nature of RxJs allows adding additional operators (map, filter, bufferWithTimeOrCount...) to the source Observable, 
 so that data can be transformed into the expected payload, and can be filtered / enriched in an efficient way.
 
-Check out the [Examples](#Examples) section below for some real-world examples. 
+Check out the [Examples](#examples) section below for some real-world examples. 
   
 ## Installation
 

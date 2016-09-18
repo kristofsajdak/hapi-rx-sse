@@ -1,6 +1,6 @@
 {
   "name": "hapi-rx-sse",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Stream Rxjs Observable values over SSE using Hapi",
   "main": "index.js",
   "keywords": [
