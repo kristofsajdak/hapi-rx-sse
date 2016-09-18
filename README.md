@@ -42,7 +42,7 @@ function createObservable() {
 }
 ```
 
-The emitted values are expected as Objects, any of the following optional properties will be mapped to the wire protocol : event, id, data and comment  
+The emitted values are expected to be Objects, any of the following optional properties will be mapped to the wire protocol : `event`, `id`, `data` and `comment`  
     
 For example
   
