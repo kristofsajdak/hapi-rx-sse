@@ -7,10 +7,12 @@ Stream Rxjs Observable values as Server-Sent Events (SSE) using Hapi.
 Hapi-rx-sse is a tiny lib which can be used inside a route handler to stream back data as Server Sent Events (SSE). 
 
 Any [RxJs](https://github.com/Reactive-Extensions/RxJS) Observable can be used as a source of events, which allows for interesting composition. 
-The source Observable could encapsulate a Kafka, RabbitMQ, Mongodb oplog consumer... or any other thing which is capable of emitting events. 
+The source Observable can encapsulate a Kafka, RabbitMQ, Mongodb oplog consumer... or any other thing which is capable of emitting events. 
            
 The composable nature of RxJs allows adding additional operators (map, filter, bufferWithTimeOrCount...) to the source Observable, 
 so that we can transform the data into the expected SSE payload, and filter / enrich the content in an efficient way.
+
+Check out the [Examples](#Examples) section below for some real-world examples. 
   
 ## Installation
 
@@ -66,19 +68,10 @@ data: {foo: bar}\r\n
 ```
     
 
-## Example 
+## Examples
 
-There is a very simple example included which streams out Rxjs Observable events created from a static array.
+The examples are located in [hapi-rx-sse-examples](https://github.com/kristofsajdak/hapi-rx-sse-examples) :
 
-```
-cd example
-node index.js
-```
-
-open your browser at [http://localhost:9100/events/streaming](http://localhost:9100/events/streaming) to see the output
- 
-or use curl instead
-```
-curl http://localhost:9100/events/streaming -v
-```
- 
+- [kafka-sse-filter](https://github.com/kristofsajdak/hapi-rx-sse-examples/tree/master/kafka-sse-filter) : Hapi route which composes a Kafka Observable ( [rx-no-kafka](https://github.com/kristofsajdak/rx-no-kafka) ) with hapi-rx-sse. 
+Supports both query filter parameters and the Last-Event-Id.
+- ... more coming soon
