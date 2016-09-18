@@ -7,7 +7,7 @@ Stream Rxjs Observable values as Server-Sent Events (SSE) using Hapi.
 Hapi-rx-sse is a tiny lib which can be used inside a route handler to stream out data as Server Sent Events (SSE). 
 
 Any [RxJs](https://github.com/Reactive-Extensions/RxJS) Observable can be used as the source of event data, which allows for interesting composition. 
-For example the source Observable could encapsulate a Kafka, RabbitMQ, Redis consumer... or any other thing which is capable of emitting events. 
+For example the source Observable could encapsulate a Kafka, RabbitMQ, Mongodb oplog consumer... or any other thing which is capable of emitting events. 
            
 The composable nature of RxJs allows us to add mappers, filters and buffers to the source Observable, 
 so that we can transform the data into the expected SSE payload, filter and enrich the content in an efficient way.
