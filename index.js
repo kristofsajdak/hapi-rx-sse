@@ -17,14 +17,14 @@ module.exports.stream = (sseObservable, req, reply) => {
         .header('Content-Encoding', 'identity');
 
     sseObservable
-        .subscribe(
-            (sseObject) => {
-                stream.write(stringifyEvent(sseObject));
-            },
-            ()=> {
-                // close the response stream on Observable completion
-                stream.end();
-            });
+        .doOnNext((sseObject) => {
+            stream.write(stringifyEvent(sseObject));
+        })
+        .doOnCompleted(()=> {
+            // close the response stream on Observable completion
+            stream.end();
+        })
+        .subscribe();
 
     // this is triggered on when the client issues a req.abort() or when the connection closes
     req.raw.req.on('close', function () {
