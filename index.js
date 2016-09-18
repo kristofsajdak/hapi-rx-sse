@@ -22,9 +22,6 @@ module.exports.stream = (sseObservable, req, reply) => {
             (sseObject) => {
                 stream.write(stringifyEvent(sseObject));
             },
-            (err) => {
-                console.error(err.stack);
-            },
             ()=> {
                 // close the response stream on Observable completion
                 stream.end();
@@ -38,11 +35,8 @@ module.exports.stream = (sseObservable, req, reply) => {
     // stringify the SSE object according to the spec, if the event is not specified the default value of 'message' is set
     function stringifyEvent(sseObject) {
         let str = '';
-        if (sseObject.event) {
-            str += 'event: ' + sseObject.event + endl
-        } else {
-            str += 'event: message';
-        }
+        sseObject.comment && (str += ': ' + sseObject.comment + endl);
+        sseObject.event && (str += 'event: ' + sseObject.event + endl);
         sseObject.data && (str += 'data: ' + sseObject.data + endl);
         sseObject.id && (str += 'id: ' + sseObject.id + endl);
         str += endl;

@@ -17,12 +17,15 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "bluebird": "^3.4.6",
     "chai": "^3.5.0",
     "eventsource": "^0.2.1",
     "exiting": "^2.0.1",
     "hapi": "^14.1.0",
     "mocha": "^3.0.1",
+    "mocha-sinon": "^1.1.6",
     "node-uuid": "^1.4.7",
-    "rx": "^4.1.0"
+    "rx": "^4.1.0",
+    "sinon": "^1.17.5"
   }
 }
