@@ -1,6 +1,6 @@
 # **hapi-rx-sse**
 
-Stream Rxjs Observable values as SSE using Hapi. 
+Stream Rxjs Observable values as Server-Sent Events (SSE) using Hapi. 
   
 [![Build Status](https://travis-ci.org/kristofsajdak/hapi-rx-sse.svg?branch=master)](https://travis-ci.org/kristofsajdak/hapi-rx-sse)
   
@@ -26,7 +26,7 @@ Hapi-rx-sse exposes a single `stream` function which accepts any RxJs Observable
 hapiRxSSE.stream(createObservable(), req, reply);
 ```
 
-Simply invoke it within a route handler to stream the Rxjs Observable values over SSE
+Simply invoke it within a route handler to stream the Rxjs Observable event objects over SSE
 
 ```javascript
 server.route({
@@ -41,6 +41,30 @@ function createObservable() {
   // ... 
 }
 ```
+
+The Observable event objects can provide values for any of the following optional properties : event, id, data and comment  
+    
+For example
+  
+```javascript
+{ 
+    event: 'books.insert',
+    id: 12345,
+    data: '{foo: bar}',
+    comment: 'whatever comments you want to provide'   
+}
+```
+
+will translate into 
+
+```
+event: books.insert\r\n
+id: 12345\r\n
+data: {foo: bar}\r\n
+: whatever comments you want to provide\r\n
+\r\n
+```
+    
 
 ## Example 
 

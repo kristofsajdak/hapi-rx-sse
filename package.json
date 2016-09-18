@@ -1,13 +1,15 @@
 {
   "name": "hapi-rx-sse",
-  "version": "0.4.9",
+  "version": "0.5.0",
   "description": "Stream Rxjs Observable values over SSE using Hapi",
   "main": "index.js",
   "keywords": [
     "hapi",
     "sse",
     "rx",
-    "rxjs"
+    "rxjs",
+    "Server-Sent Events",
+    "Server Sent Events"
   ],
   "engines": {
     "node": ">=4"
