@@ -4,13 +4,13 @@ Stream Rxjs Observable values as Server-Sent Events (SSE) using Hapi.
   
 [![Build Status](https://travis-ci.org/kristofsajdak/hapi-rx-sse.svg?branch=master)](https://travis-ci.org/kristofsajdak/hapi-rx-sse)
   
-Hapi-rx-sse is a tiny lib which can be used inside a route handler to stream out data as Server Sent Events (SSE). 
+Hapi-rx-sse is a tiny lib which can be used inside a route handler to stream back data as Server Sent Events (SSE). 
 
-Any [RxJs](https://github.com/Reactive-Extensions/RxJS) Observable can be used as the source of event data, which allows for interesting composition. 
-For example the source Observable could encapsulate a Kafka, RabbitMQ, Mongodb oplog consumer... or any other thing which is capable of emitting events. 
+Any [RxJs](https://github.com/Reactive-Extensions/RxJS) Observable can be used as a source of events, which allows for interesting composition. 
+The source Observable could encapsulate a Kafka, RabbitMQ, Mongodb oplog consumer... or any other thing which is capable of emitting events. 
            
-The composable nature of RxJs allows us to add mappers, filters and buffers to the source Observable, 
-so that we can transform the data into the expected SSE payload, filter and enrich the content in an efficient way.
+The composable nature of RxJs allows adding additional operators (map, filter, bufferWithTimeOrCount...) to the source Observable, 
+so that we can transform the data into the expected SSE payload, and filter / enrich the content in an efficient way.
   
 ## Installation
 
@@ -26,7 +26,7 @@ Hapi-rx-sse exposes a single `stream` function which accepts any RxJs Observable
 hapiRxSSE.stream(createObservable(), req, reply);
 ```
 
-Simply invoke it within a route handler to stream the Rxjs Observable event objects over SSE
+Simply invoke it within a route handler to stream back the Rxjs Observable values as Server-Sent Events.
 
 ```javascript
 server.route({
@@ -42,7 +42,7 @@ function createObservable() {
 }
 ```
 
-The Observable event objects can provide values for any of the following optional properties : event, id, data and comment  
+The emitted values are expected as Objects, any of the following optional properties will be mapped to the wire protocol : event, id, data and comment  
     
 For example
   
