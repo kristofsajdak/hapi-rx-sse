@@ -10,7 +10,7 @@ Any [RxJs](https://github.com/Reactive-Extensions/RxJS) Observable can be used a
 The source Observable can encapsulate a Kafka, RabbitMQ, Mongodb oplog consumer... or any other thing which is capable of emitting events. 
            
 The composable nature of RxJs allows adding additional operators (map, filter, bufferWithTimeOrCount...) to the source Observable, 
-so that we can transform the data into the expected SSE payload, and filter / enrich the content in an efficient way.
+so that data can be transformed into the expected payload, and can be filtered / enriched in an efficient way.
 
 Check out the [Examples](#Examples) section below for some real-world examples. 
   
