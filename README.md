@@ -28,7 +28,7 @@ Hapi-rx-sse exposes a single `stream` function which accepts any RxJs Observable
 hapiRxSSE.stream(createObservable(), req, reply);
 ```
 
-Simply invoke it within a route handler to stream back the Rxjs Observable values as Server-Sent Events.
+Simply invoke it within a route handler to stream back the Rxjs Observable values as Server-Sent Events. 
 
 ```javascript
 server.route({
@@ -40,7 +40,7 @@ server.route({
 });
 
 function createObservable() {
-  // ... 
+  // ... See the Examples section below for more details on how the Observable can be created
 }
 ```
 
@@ -70,7 +70,7 @@ data: {foo: bar}\r\n
 
 ## Examples
 
-The examples are located in [hapi-rx-sse-examples](https://github.com/kristofsajdak/hapi-rx-sse-examples)
+The examples are located at [hapi-rx-sse-examples](https://github.com/kristofsajdak/hapi-rx-sse-examples)
 
 - [kafka-sse-filter](https://github.com/kristofsajdak/hapi-rx-sse-examples/tree/master/kafka-sse-filter): 
 Defines a route which composes a Kafka Observable ( [rx-no-kafka](https://github.com/kristofsajdak/rx-no-kafka) ) with hapi-rx-sse. 
