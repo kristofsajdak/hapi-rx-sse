@@ -72,6 +72,7 @@ data: {foo: bar}\r\n
 
 The examples are located in [hapi-rx-sse-examples](https://github.com/kristofsajdak/hapi-rx-sse-examples)
 
-- [kafka-sse-filter](https://github.com/kristofsajdak/hapi-rx-sse-examples/tree/master/kafka-sse-filter): Hapi app which exposes an endpoint, defined by a route which composes a Kafka Observable ( [rx-no-kafka](https://github.com/kristofsajdak/rx-no-kafka) ) with hapi-rx-sse. 
-Supports both query filter parameters and the Last-Event-Id.
+- [kafka-sse-filter](https://github.com/kristofsajdak/hapi-rx-sse-examples/tree/master/kafka-sse-filter): 
+Defines by a route which composes a Kafka Observable ( [rx-no-kafka](https://github.com/kristofsajdak/rx-no-kafka) ) with hapi-rx-sse. 
+Supports filtering via query parameters and Last-Event-Id to resume on connection failures.
 - ... more coming soon
